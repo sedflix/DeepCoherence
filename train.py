@@ -27,3 +27,8 @@ model.fit(train[0], train[1],
           shuffle=True,
           validation_data=(dev[0], dev[1]),
           callbacks=[checkpoints])
+
+print(model.evaluate(x=test[0],
+                     y=test[1],
+                     verbose=1))
+

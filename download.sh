@@ -3,3 +3,6 @@ unzip glove.6B.zip
 rm  glove.6B.zip
 mkdir glove/
 mv *.txt glove/
+
+mkdir -p trained_models
+

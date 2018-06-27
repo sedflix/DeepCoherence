@@ -15,7 +15,7 @@ EMBEDDING_FILE_PATH = os.path.join(DATA_BASE_DIR, 'glove/glove.6B.50d.txt')
 MAX_NUM_WORDS = 400001
 EMBEDDING_DIM = 50
 
-MAX_SEQUENCE_LENGTH = 200
+MAX_SEQUENCE_LENGTH = 100
 print("Loading word embedding")
 word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH, embedding_dim=EMBEDDING_DIM)
 print(len(word2index.keys()))
