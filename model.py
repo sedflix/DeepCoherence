@@ -21,10 +21,10 @@ word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH, emb
 print(len(word2index.keys()))
 print("Done loading word embedding")
 
-NUMBER_OF_FILTERS = [100]
+NUMBER_OF_FILTERS = [200]
 KERNEL_SIZE = [4]
-HIDDEN_LAYER = 100
-SIMILARITY_LAYER = 10
+HIDDEN_LAYER = 200
+SIMILARITY_LAYER = 1
 
 
 def get_emdedding_layer():
