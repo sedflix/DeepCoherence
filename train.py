@@ -1,7 +1,7 @@
 from keras.callbacks import ModelCheckpoint
 
 from model import *
-from utills import load_cui_dataset
+from utills import load_cui_dataset, f1
 
 DATASET_DIR = 'data/cui/processed/'
 
@@ -10,13 +10,13 @@ train, dev, test = load_cui_dataset(DATASET_DIR, MAX_SEQUENCE_LENGTH)
 model = get_model()
 model.compile(loss='binary_crossentropy',
               optimizer='adam',
-              metrics=['mae', 'acc'])
+              metrics=['acc', f1])
 print(model.summary())
 
 checkpoints = ModelCheckpoint('trained_models/model.{epoch:02d}-{val_loss:.2f}.hdf5,',
                               monitor='val_loss',
                               verbose=1,
-                              save_best_only=False,
+                              save_best_only=True,
                               save_weights_only=False,
                               mode='auto',
                               period=1)
