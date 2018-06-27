@@ -11,26 +11,26 @@ from load_glove_embeddings import load_glove_embeddings
 
 DATA_BASE_DIR = ''
 
-EMBEDDING_FILE_PATH = os.path.join(DATA_BASE_DIR, 'glove.6B/glove.6B.50d.txt')
+EMBEDDING_FILE_PATH = os.path.join(DATA_BASE_DIR, 'glove/glove.6B.50d.txt')
 MAX_NUM_WORDS = 400001
 EMBEDDING_DIM = 50
 
 MAX_SEQUENCE_LENGTH = 200
 print("Loading word embedding")
-# word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH, embedding_dim=EMBEDDING_DIM)
-# print(len(word2index.keys()))
+word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH, embedding_dim=EMBEDDING_DIM)
+print(len(word2index.keys()))
 print("Done loading word embedding")
 
-NUMBER_OF_FILTERS = [200]
+NUMBER_OF_FILTERS = [100]
 KERNEL_SIZE = [4]
-HIDDEN_LAYER = 400
+HIDDEN_LAYER = 100
 SIMILARITY_LAYER = 10
 
 
 def get_emdedding_layer():
     return Embedding(MAX_NUM_WORDS,
                      EMBEDDING_DIM,
-                     # weights=[embedding_matrix],
+                     weights=[embedding_matrix],
                      input_length=MAX_SEQUENCE_LENGTH,
                      trainable=False)
 

@@ -13,7 +13,7 @@ model.compile(loss='binary_crossentropy',
               metrics=['mae', 'acc'])
 print(model.summary())
 
-checkpoints = ModelCheckpoint('trained_models/',
+checkpoints = ModelCheckpoint('trained_models/model.{epoch:02d}-{val_loss:.2f}.hdf5,',
                               monitor='val_loss',
                               verbose=1,
                               save_best_only=False,
@@ -23,7 +23,7 @@ checkpoints = ModelCheckpoint('trained_models/',
 
 model.fit(train[0], train[1],
           batch_size=128,
-          epochs=10,
+          epochs=20,
           shuffle=True,
           validation_data=(test[0], test[1]),
           callbacks=[checkpoints])
