@@ -22,8 +22,8 @@ checkpoints = ModelCheckpoint('trained_models/model.{epoch:02d}-{val_loss:.2f}.h
                               period=1)
 
 model.fit(train[0], train[1],
-          batch_size=128,
+          batch_size=500,
           epochs=20,
           shuffle=True,
-          validation_data=(test[0], test[1]),
+          validation_data=(dev[0], dev[1]),
           callbacks=[checkpoints])
