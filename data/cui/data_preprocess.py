@@ -61,7 +61,7 @@ if __name__ == '__main__':
     MAX_NUM_WORDS = 400001
     EMBEDDING_DIM = 50
 
-    MAX_SEQUENCE_LENGTH = 400
+    MAX_SEQUENCE_LENGTH = 200
     print("Loading word embedding")
     word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH,
                                                          embedding_dim=EMBEDDING_DIM)
@@ -91,19 +91,19 @@ if __name__ == '__main__':
     }
 
     #  200
-    # rootdir = 'data/cui/data'
-    # for parent, dirnames, filenames in os.walk(rootdir):
-    #     for filename in filenames:
-    #         if not filename[0] == '.':  # to avoid '.DS_Store'
-    #             filename = os.path.join(parent, filename)
-    #             print(filename)
-    #             firsts, seconds, thirds, fulls, labels = load_data(filename)
-    #             print(labels)
-    #             train['firsts'].append(firsts)
-    #             train['seconds'].append(seconds)
-    #             train['thirds'].append(thirds)
-    #             train['fulls'].append(fulls)
-    #             train['labels'].append(labels)
+    rootdir = 'data'
+    for parent, dirnames, filenames in os.walk(rootdir):
+        for filename in filenames:
+            if not filename[0] == '.':  # to avoid '.DS_Store'
+                filename = os.path.join(parent, filename)
+                print(filename)
+                firsts, seconds, thirds, fulls, labels = load_data(filename, word2index)
+                print(labels)
+                train['firsts'].extend(firsts)
+                train['seconds'].extend(seconds)
+                train['thirds'].extend(thirds)
+                train['fulls'].extend(fulls)
+                train['labels'].extend(labels)
 
     rootdir_2 = 'data2/train-perm'
     for parent, dirnames, filenames in os.walk(rootdir_2):
