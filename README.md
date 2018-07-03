@@ -1,6 +1,6 @@
 # DeepCoherence
 
-It is based on [**Text Coherence Analysis Based on Deep Neural Network**](https://arxiv.org/abs/1710.07770)  
+It is kind of based on [**Text Coherence Analysis Based on Deep Neural Network**](https://arxiv.org/abs/1710.07770)  
 by *Baiyun Cui, Yingming Li, Yaqing Zhang, Zhongfei Zhang*
 
 Based on the origial data provied by [Baiyun Cui](mailto:baiyunc@yahoo.com) 
@@ -70,7 +70,7 @@ $/DeepCoherence> python train.py
 
 ## Predict
 
-Open `predict.py`, and file model weights and sentences and then
+Open `predict.py`, and add file path of  model_weight_file and enter the input sentences and then
 ```
 $/DeepCoherence> python predcit.py
 ```
