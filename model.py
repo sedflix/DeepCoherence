@@ -14,17 +14,14 @@ DATA_BASE_DIR = ''
 EMBEDDING_FILE_PATH = os.path.join(DATA_BASE_DIR, 'glove/glove.6B.50d.txt')
 MAX_NUM_WORDS = 400001
 EMBEDDING_DIM = 50
+word2index, embedding_matrix = "", ""
 
 MAX_SEQUENCE_LENGTH = 100
-print("Loading word embedding")
-word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH, embedding_dim=EMBEDDING_DIM)
-print(len(word2index.keys()))
-print("Done loading word embedding")
 
 NUMBER_OF_FILTERS = [200]
 KERNEL_SIZE = [4]
-HIDDEN_LAYER = 200
-SIMILARITY_LAYER = 1
+HIDDEN_LAYER = 300
+SIMILARITY_LAYER = 20
 
 
 def get_emdedding_layer():
@@ -68,6 +65,14 @@ def embedded_cnn(x):
 
 
 def get_model():
+    # So that we load word embedding only once
+    print("Loading word embedding")
+    global word2index
+    global embedding_matrix
+    word2index, embedding_matrix = load_glove_embeddings(fp=EMBEDDING_FILE_PATH, embedding_dim=EMBEDDING_DIM)
+    print("Vocab Size: %d" % len(word2index.keys()))
+    print("Done loading word embedding")
+
     # For first sentence
     x_1 = Input(shape=(MAX_SEQUENCE_LENGTH,))
     f = embedded_cnn(x_1)  # weight x_f here
@@ -81,10 +86,12 @@ def get_model():
     t = embedded_cnn(x_3)  # weight x_t here
 
     # Similarity between first and second sentence
+    # NOTE: I've used a dense layer instead of similarity matrix to get the similarity score
     fs = Dense(units=SIMILARITY_LAYER,
                activation='relu')(Concatenate()([f, s]))  # M_fs here
 
     # Similarity between second and third sentence
+    # NOTE: I've used a dense layer instead of similarity matrix to get the similarity score
     st = Dense(units=SIMILARITY_LAYER,
                activation='relu')(Concatenate()([s, t]))  # M_st here
 

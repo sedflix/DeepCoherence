@@ -1,4 +1,5 @@
 import json
+from collections import Counter
 
 import numpy as np
 from keras.preprocessing.sequence import pad_sequences
@@ -18,9 +19,9 @@ def pad_all(dict, maxlen):
     x_2 = dict['seconds']
     x_3 = dict['thirds']
 
-    x_1 = pad_sequences(x_1, maxlen=maxlen, padding='post', truncating='post')
-    x_2 = pad_sequences(x_2, maxlen=maxlen,  padding='post', truncating='post')
-    x_3 = pad_sequences(x_3, maxlen=maxlen,  padding='post', truncating='post')
+    x_1 = pad_sequences(x_1, maxlen=maxlen, padding='post', truncating='post', value=-1)
+    x_2 = pad_sequences(x_2, maxlen=maxlen, padding='post', truncating='post', value=-1)
+    x_3 = pad_sequences(x_3, maxlen=maxlen, padding='post', truncating='post', value=-1)
 
     return np.array([[x_1, x_2, x_3], dict['labels']])
 
@@ -83,3 +84,22 @@ def f1(y_true, y_pred):
     precision = precision(y_true, y_pred)
     recall = recall(y_true, y_pred)
     return 2 * ((precision * recall) / (precision + recall + K.epsilon()))
+
+
+def get_class_weights(y, smooth_factor=0):
+    """
+    Returns the weights for each class based on the frequencies of the samples
+    :param smooth_factor: factor that smooths extremely uneven weights
+    :param y: list of true labels (the labels must be hashable)
+    :return: dictionary with the weight for each class
+    """
+    counter = Counter(y)
+
+    if smooth_factor > 0:
+        p = max(counter.values()) * smooth_factor
+        for k in counter.keys():
+            counter[k] += p
+
+    majority = max(counter.values())
+
+    return {cls: float(majority / count) for cls, count in counter.items()}
