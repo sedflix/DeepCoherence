@@ -1,6 +1,6 @@
-FROM tensorflow/tensorflow:latest-gpu
+FROM tensorflow/tensorflow:latest-gpu-py3
 
-RUN pip3 install keras
+RUN pip install keras
 
 WORKDIR  /src/
 CMD bash
