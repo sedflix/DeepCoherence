@@ -17,7 +17,7 @@ def load_glove_embeddings(fp, embedding_dim, include_empty_char=True):
     # First, build the "word2coefs" and "word2index"
     word2coefs = {}  # word to its corresponding coefficients
     word2index = {}  # word to word-index
-    with open(fp) as f:
+    with open(fp, encoding='utf-8') as f:
         for idx, line in enumerate(f):
             try:
                 data = [x.strip().lower() for x in line.split()]
