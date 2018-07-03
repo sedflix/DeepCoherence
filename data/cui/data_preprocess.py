@@ -8,13 +8,16 @@ sys.path.append('../../')
 from load_glove_embeddings import load_glove_embeddings
 
 
+def remove_non_ascii(text):
+    return ''.join([i if ord(i) < 128 else ' ' for i in text])
+
 def load_data(fname, word2index):
     lines = open(fname).readlines()
     firsts, seconds, thirds, fulls, labels = [], [], [], [], []
     count = -1
     cut = 0
     for i, line in enumerate(lines):
-        line = line.strip()
+        line = remove_non_ascii(line.strip())
         cut = line.find(' ')
         line = line[cut + 1:]
         full = line.lower().split('\t')
