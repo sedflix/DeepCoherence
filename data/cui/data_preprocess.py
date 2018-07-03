@@ -24,12 +24,14 @@ def load_data(fname, word2index):
             res.extend([x for x in re.split('(\W+)', element) if (len(x) != 0)])
         full = res[:]
 
+        # full = re.sub(r'[^\w\s]', '', full)
+
         full_num = []
         for word in full:
             try:
                 full_num.append(word2index[word])
             except:
-                full_num.append(0)
+                pass
         full = full_num
         fulls.append(full)
         count = count + 1
@@ -57,7 +59,7 @@ if __name__ == '__main__':
 
     DATA_BASE_DIR = '../../'
 
-    EMBEDDING_FILE_PATH = os.path.join(DATA_BASE_DIR, 'glove.6B/glove.6B.50d.txt')
+    EMBEDDING_FILE_PATH = os.path.join(DATA_BASE_DIR, 'glove/glove.6B.50d.txt')
     MAX_NUM_WORDS = 400001
     EMBEDDING_DIM = 50
 
