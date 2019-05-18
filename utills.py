@@ -19,9 +19,9 @@ def pad_all(dict, maxlen):
     x_2 = dict['seconds']
     x_3 = dict['thirds']
 
-    x_1 = pad_sequences(x_1, maxlen=maxlen, padding='post', truncating='post', value=-1)
-    x_2 = pad_sequences(x_2, maxlen=maxlen, padding='post', truncating='post', value=-1)
-    x_3 = pad_sequences(x_3, maxlen=maxlen, padding='post', truncating='post', value=-1)
+    x_1 = pad_sequences(x_1, maxlen=maxlen, padding='post', truncating='post', value=0)
+    x_2 = pad_sequences(x_2, maxlen=maxlen, padding='post', truncating='post', value=0)
+    x_3 = pad_sequences(x_3, maxlen=maxlen, padding='post', truncating='post', value=0)
 
     return np.array([[x_1, x_2, x_3], dict['labels']])
 
